@@ -12,7 +12,7 @@ export class MysqlConfigService implements TypeOrmOptionsFactory {
       username: config.mysqlUsername,
       password: config.mysqlPassword,
       database: config.mysqlDatabase,
-      entities: [entityPath],
+      entities: ['./.yarn/cache/nose-pet-entity-*/node_modules/nose-pet-entity/dist/**/*.entity.js'],
       timezone: 'Z',
       logging: false,
       synchronize: false,
