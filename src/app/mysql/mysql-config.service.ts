@@ -4,7 +4,6 @@ import { config } from '../config/config.service';
 
 export class MysqlConfigService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    const entityPath = path.join(__dirname, './**/*.entity.{ts,js}');
     return {
       type: 'mysql',
       host: config.mysqlHost,
@@ -12,7 +11,7 @@ export class MysqlConfigService implements TypeOrmOptionsFactory {
       username: config.mysqlUsername,
       password: config.mysqlPassword,
       database: config.mysqlDatabase,
-      entities: [entityPath],
+      entities: ['./.yarn/cache/nose-pet-entity-*/node_modules/nose-pet-entity/dist/**/*.entity.js'],
       timezone: 'Z',
       logging: false,
       synchronize: false,
