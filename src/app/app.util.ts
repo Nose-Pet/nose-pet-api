@@ -4,6 +4,7 @@ import ERROR_CODE from './exceptions/error-code';
 import { HttpStatus } from '@nestjs/common';
 import { JwtUserPayload } from './app.interface';
 import { config } from './config/config.service';
+import * as crypto from 'crypto';
 
 export const jwtAccessTokenSign = async (payload: string | object | Buffer): Promise<string> => {
   try {
@@ -46,4 +47,11 @@ export const jwtTokenTimeLeft = async (payload: JwtUserPayload): Promise<number>
   }
 
   return payload.exp - Date.now() / 1000;
+};
+
+export const encryptPassword = (password: string): { salt: string; hash: string } => {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, config.passwordKeyStretch, 32, 'sha256').toString('hex');
+
+  return { salt, hash };
 };

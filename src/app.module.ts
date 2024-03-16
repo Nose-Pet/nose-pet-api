@@ -10,13 +10,29 @@ import { TokenTimeLeftInterceptor } from './app/interceptors/token-time-left.int
 import { AllExceptionFilter } from './app/filters/all-exception.filter';
 import { RequestMiddleware } from './app/middlewares/request.middleware';
 import { MysqlConfigService } from './app/mysql/mysql-config.service';
+import { UserModule } from './user/user.module';
+import { TokenModule } from './token/token.module';
+import { AuthModule } from './auth/auth.module';
+import { UserPetGroupModule } from './user-pet-group/user-pet-group.module';
+import { UserSecretModule } from './user-secret/user-secret.module';
 
 export const TypeOrmRootModule = TypeOrmModule.forRootAsync({
   useClass: MysqlConfigService,
 });
 
 @Module({
-  imports: [RavenModule, TypeOrmRootModule, LoggerModule, HealthModule, SentryModule],
+  imports: [
+    RavenModule,
+    TypeOrmRootModule,
+    LoggerModule,
+    HealthModule,
+    SentryModule,
+    UserModule,
+    TokenModule,
+    AuthModule,
+    UserPetGroupModule,
+    UserSecretModule,
+  ],
   providers: [
     { provide: APP_INTERCEPTOR, useValue: new RavenInterceptor() },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },

@@ -20,7 +20,6 @@ export class AllExceptionFilter implements ExceptionFilter {
     const sendData: any = {
       errorCode: 'ERR_000_0001',
       message: ERROR_CODE.ERR_000_0001,
-      error: undefined,
     };
 
     if (exception instanceof ClientRequestException) {
@@ -29,11 +28,9 @@ export class AllExceptionFilter implements ExceptionFilter {
 
       sendData.message = exception.getResponse();
       sendData.errorCode = this.getErrorCode(sendData.message);
-      sendData.error = exception.value;
 
-      if (sendData.error?.value) {
+      if (exception.value) {
         sendData.message = format(sendData.message, sendData.error);
-        sendData.error = undefined;
       }
     } else if (exception instanceof NotFoundException) {
       statusCode = 404;
@@ -47,7 +44,6 @@ export class AllExceptionFilter implements ExceptionFilter {
 
       sendData.errorCode = 'ERR_000_0003';
       sendData.message = ERROR_CODE.ERR_000_0003;
-      sendData.error = exception.getResponse();
     }
 
     // sentry가 켜져있고, 500번대 에러일 경우에만 sentry에 에러를 보낸다.

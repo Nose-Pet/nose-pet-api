@@ -6255,7 +6255,7 @@ __metadata:
     jsonwebtoken: "npm:^9.0.2"
     mysql2: "npm:^3.9.1"
     nest-raven: "npm:^10.0.1"
-    nose-pet-entity: "npm:1.0.0"
+    nose-pet-entity: "npm:1.2.1"
     prettier: "npm:^3.0.0"
     reflect-metadata: "npm:^0.2.1"
     request-ip: "npm:^3.3.0"
@@ -6275,9 +6275,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"nose-pet-entity@npm:1.0.0":
-  version: 1.0.0
-  resolution: "nose-pet-entity@npm:1.0.0"
+"nose-pet-entity@npm:1.2.1":
+  version: 1.2.1
+  resolution: "nose-pet-entity@npm:1.2.1"
   dependencies:
     "@nestjs/common": "npm:^10.3.2"
     "@nestjs/core": "npm:^10.3.2"
@@ -6285,7 +6285,7 @@ __metadata:
     rimraf: "npm:^3.0.2"
     rxjs: "npm:^7.8.1"
     typeorm: "npm:^0.3.20"
-  checksum: 10/e6026292b63e5e597b7c8a9b5d762288daa5404ad8657c092e91094a1739f6627e91991cdc9f28679b5df66d3aa2e20d7cfdbe4635c6ea76a7c1723fe9b92b9c
+  checksum: 10/be1ad1ce41a7e6fb15984a3e1f70cc14521a6964d8e0441f1c024a546313c675eb1d369d98ecb74c41142bb17adbcd4628ff60ff243d5f9fc04d1241074f8c13
   languageName: node
   linkType: hard
 
