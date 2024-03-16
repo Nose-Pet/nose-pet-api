@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { SignupDto } from './auth.dto';
 import { UserPetGroupService } from '../user-pet-group/user-pet-group.service';
 import { UserService } from '../user/user.service';
 import { DataSource } from 'typeorm';
+import { ClientRequestException } from '../app/exceptions/request.exception';
+import ERROR_CODE from '../app/exceptions/error-code';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +20,11 @@ export class AuthService {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      const duplicateUser = await this.userService.getUserByEmail(body.email);
+      if (duplicateUser) {
+        throw new ClientRequestException(ERROR_CODE.ERR_002_0009, HttpStatus.BAD_REQUEST);
+      }
+
       // TODO: 그룹은 유저의 닉네임으로 임시 생성
       const userPetGroup = await this.userPetGroupService.createUserPetGroup(body.nickname, manager);
       await this.userService.addUser(body, userPetGroup, manager);
