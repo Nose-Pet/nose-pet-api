@@ -12,22 +12,6 @@ export const jwtSign = (payload: JwtPayloadType, expiresIn: JwtExpiresInType): s
   return jwt.sign(payload, config.jwtSecretKey, { expiresIn });
 };
 
-export const jwtAccessTokenSign = async (payload: string | object | Buffer): Promise<string> => {
-  try {
-    return await jwt.sign(payload, config.jwtSecretKey, { expiresIn: '30m' });
-  } catch (e) {
-    throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-};
-
-export const jwtRefreshTokenSign = async (payload: string | object | Buffer): Promise<string> => {
-  try {
-    return await jwt.sign(payload, config.jwtSecretKey, { expiresIn: '30d' });
-  } catch (e) {
-    throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-};
-
 export const jwtVerify = async (token: string): Promise<JwtUserPayload | undefined> => {
   try {
     return (await jwt.verify(token, config.jwtSecretKey)) as JwtUserPayload;
