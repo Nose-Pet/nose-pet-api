@@ -27,7 +27,7 @@ export class IsPassword implements ValidatorConstraintInterface {
       throw new ClientRequestException(ERROR_CODE.ERR_000_0007, HttpStatus.BAD_REQUEST, { value: property });
     }
 
-    const PASSWORD_RULE = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+    const PASSWORD_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
     if (PASSWORD_RULE.test(value)) {
       return true;
     }
