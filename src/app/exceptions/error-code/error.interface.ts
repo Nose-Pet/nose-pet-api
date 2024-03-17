@@ -32,6 +32,8 @@ export interface IErrorCode {
   // validation error
   ERR_001_0001: string;
   ERR_001_0002: string;
+  ERR_001_0003: string;
+  ERR_001_0004: string;
 
   // user error
   ERR_002_0001: string;

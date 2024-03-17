@@ -30,6 +30,7 @@ export class ConfigService {
       MYSQL_DATABASE: Joi.string().required(),
       MYSQL_USERNAME: Joi.string().required(),
       MYSQL_PASSWORD: Joi.string(),
+      PASSWORD_KEY_STRETCH: Joi.number().required(),
       JWT_SECRET_KEY: Joi.string().required(),
       SENTRY_DSN: Joi.string().required(),
       SLACK_API_SERVER: Joi.string().required(),
@@ -77,6 +78,9 @@ export class ConfigService {
   }
   get mysqlPassword(): string {
     return this.envConfig.MYSQL_PASSWORD;
+  }
+  get passwordKeyStretch(): number {
+    return this.envConfig.PASSWORD_KEY_STRETCH;
   }
   get jwtSecretKey(): string {
     return this.envConfig.JWT_SECRET_KEY;

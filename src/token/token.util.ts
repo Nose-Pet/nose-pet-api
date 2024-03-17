@@ -1,24 +1,15 @@
 import * as jwt from 'jsonwebtoken';
-import { ClientRequestException } from './exceptions/request.exception';
-import ERROR_CODE from './exceptions/error-code';
+import { config } from '../app/config/config.service';
+import { ClientRequestException } from '../app/exceptions/request.exception';
+import ERROR_CODE from '../app/exceptions/error-code';
+import { JwtUserPayload } from '../app/app.interface';
 import { HttpStatus } from '@nestjs/common';
-import { JwtUserPayload } from './app.interface';
-import { config } from './config/config.service';
 
-export const jwtAccessTokenSign = async (payload: string | object | Buffer): Promise<string> => {
-  try {
-    return await jwt.sign(payload, config.jwtSecretKey, { expiresIn: '30m' });
-  } catch (e) {
-    throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-};
+export type JwtPayloadType = string | object | Buffer;
+export type JwtExpiresInType = string | number;
 
-export const jwtRefreshTokenSign = async (payload: string | object | Buffer): Promise<string> => {
-  try {
-    return await jwt.sign(payload, config.jwtSecretKey, { expiresIn: '30d' });
-  } catch (e) {
-    throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+export const jwtSign = (payload: JwtPayloadType, expiresIn: JwtExpiresInType): string => {
+  return jwt.sign(payload, config.jwtSecretKey, { expiresIn });
 };
 
 export const jwtVerify = async (token: string): Promise<JwtUserPayload | undefined> => {

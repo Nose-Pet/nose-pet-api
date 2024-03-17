@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 import { IRequestAugmented } from '../app.interface';
-import { jwtTokenTimeLeft } from '../app.util';
+import { jwtTokenTimeLeft } from '../../token/token.util';
 
 @Injectable()
 export class TokenTimeLeftInterceptor implements NestInterceptor {
