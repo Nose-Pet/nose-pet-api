@@ -18,3 +18,11 @@ export class SignupDto {
   @Validate(IsString)
   nickname: string;
 }
+
+export class SigninDto {
+  @Validate(IsEmail)
+  email: string;
+
+  @Validate(IsPassword)
+  password: string;
+}

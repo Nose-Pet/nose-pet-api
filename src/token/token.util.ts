@@ -1,10 +1,16 @@
 import * as jwt from 'jsonwebtoken';
-import { ClientRequestException } from './exceptions/request.exception';
-import ERROR_CODE from './exceptions/error-code';
+import { config } from '../app/config/config.service';
+import { ClientRequestException } from '../app/exceptions/request.exception';
+import ERROR_CODE from '../app/exceptions/error-code';
+import { JwtUserPayload } from '../app/app.interface';
 import { HttpStatus } from '@nestjs/common';
-import { JwtUserPayload } from './app.interface';
-import { config } from './config/config.service';
-import * as crypto from 'crypto';
+
+export type JwtPayloadType = string | object | Buffer;
+export type JwtExpiresInType = string | number;
+
+export const jwtSign = (payload: JwtPayloadType, expiresIn: JwtExpiresInType): string => {
+  return jwt.sign(payload, config.jwtSecretKey, { expiresIn });
+};
 
 export const jwtAccessTokenSign = async (payload: string | object | Buffer): Promise<string> => {
   try {
@@ -47,11 +53,4 @@ export const jwtTokenTimeLeft = async (payload: JwtUserPayload): Promise<number>
   }
 
   return payload.exp - Date.now() / 1000;
-};
-
-export const encryptPassword = (password: string): { salt: string; hash: string } => {
-  const salt = crypto.randomBytes(16).toString('hex');
-  const hash = crypto.pbkdf2Sync(password, salt, config.passwordKeyStretch, 32, 'sha256').toString('hex');
-
-  return { salt, hash };
 };

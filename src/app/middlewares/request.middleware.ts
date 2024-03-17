@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Response } from 'express';
 import { RequestExtras } from '../interceptors/request-extras';
 import { IRequestAugmented, JwtUserPayload } from '../app.interface';
-import { jwtVerify } from '../app.util';
+import { jwtVerify } from '../../token/token.util';
 
 @Injectable()
 export class RequestMiddleware implements NestMiddleware {

@@ -32,6 +32,6 @@ export class UserService {
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.getUser({ email });
+    return this.userRepository.getUser({ email }, ['userSecret']);
   }
 }

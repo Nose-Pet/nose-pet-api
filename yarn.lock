@@ -3228,6 +3228,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "date-fns@npm:3.5.0"
+  checksum: 10/d37eff45f97e6c6745072ff2733c63fffa89e91d4bf407c368641b83c05eaa5222f3f1ba2d7f88862c4fc26fbcf4ad2ffac4526ae6a6414c10fcaea411ab71c3
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.11.9":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
@@ -6245,6 +6252,7 @@ __metadata:
     axios: "npm:^1.6.7"
     class-transformer: "npm:^0.5.1"
     class-validator: "npm:^0.14.1"
+    date-fns: "npm:^3.5.0"
     dotenv: "npm:^16.4.1"
     eslint: "npm:^8.42.0"
     eslint-config-prettier: "npm:^9.0.0"
