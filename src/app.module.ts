@@ -40,7 +40,7 @@ export const TypeOrmRootModule = TypeOrmModule.forRootAsync({
   providers: [
     { provide: APP_INTERCEPTOR, useValue: new RavenInterceptor() },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: TokenTimeLeftInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: TokenTimeLeftInterceptor },
     { provide: APP_FILTER, useClass: AllExceptionFilter },
   ],
 })
