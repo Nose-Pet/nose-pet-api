@@ -55,3 +55,16 @@ export class IsStringNumber implements ValidatorConstraintInterface {
     throw new ClientRequestException(ERROR_CODE.ERR_001_0001, HttpStatus.BAD_REQUEST, { value: property });
   }
 }
+
+@ValidatorConstraint({ name: 'isBoolean' })
+@Injectable()
+export class IsBoolean implements ValidatorConstraintInterface {
+  validate(value: any, validationArguments: ValidationArguments): boolean {
+    const property = validationArguments.property;
+    if (typeof value === 'boolean') {
+      return true;
+    }
+
+    throw new ClientRequestException(ERROR_CODE.ERR_001_0006, HttpStatus.BAD_REQUEST, { value: property });
+  }
+}

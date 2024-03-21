@@ -1,24 +1,33 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpStatus, Injectable } from '@nestjs/common';
+import { IRequestAugmented } from '../app.interface';
+import { ClientRequestException } from '../exceptions/request.exception';
+import ERROR_CODE from '../exceptions/error-code';
+import { UserStatus } from 'nose-pet-entity/dist/user/user.constant';
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class UserGuard implements CanActivate {
+  constructor(private readonly userService: UserService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    // fill code
-    // const req = context.switchToHttp().getRequest<IRequestAugmented>();
-    // const authorization = req.headers.authorization;
-    // if (!authorization) {
-    //   throw new ClientRequestException(ERROR_CODE.ERR_002_0001, HttpStatus.BAD_REQUEST);
-    // }
+    const req = context.switchToHttp().getRequest<IRequestAugmented>();
 
-    // const token = authorization.replace('Bearer ', '');
-    // await jwtVerify(token);
+    const payload = req.extras.getPayload();
 
-    // const user = req.extras.getUser();
-    // if (!user) {
-    //   throw new ClientRequestException(ERROR_CODE.ERR_002_0001, HttpStatus.UNAUTHORIZED);
-    // }
+    const user = await this.userService.getUserFullJoinedByIdx(payload.userIdx);
+    if (!user) {
+      throw new ClientRequestException(ERROR_CODE.ERR_002_0001, HttpStatus.UNAUTHORIZED);
+    }
+    if (user.status !== UserStatus.Activated) {
+      throw new ClientRequestException(ERROR_CODE.ERR_002_0010, HttpStatus.UNAUTHORIZED);
+    }
+    if (!user.userPetGroup) {
+      throw new ClientRequestException(ERROR_CODE.ERR_002_0011, HttpStatus.UNAUTHORIZED);
+    }
 
-    // user.isActivated();
+    req.extras.setPayload(payload);
+    req.extras.setUser(user);
+    req.extras.setUserPetGroup(user.userPetGroup);
 
     return true;
   }

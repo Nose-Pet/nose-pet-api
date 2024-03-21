@@ -12,9 +12,9 @@ export const jwtSign = (payload: JwtPayloadType, expiresIn: JwtExpiresInType): s
   return jwt.sign(payload, config.jwtSecretKey, { expiresIn });
 };
 
-export const jwtVerify = async (token: string): Promise<JwtUserPayload | undefined> => {
+export const jwtVerify = (token: string): JwtUserPayload => {
   try {
-    return (await jwt.verify(token, config.jwtSecretKey)) as JwtUserPayload;
+    return jwt.verify(token, config.jwtSecretKey) as JwtUserPayload;
   } catch (e) {
     if (e instanceof Error) {
       switch (e.message) {
@@ -25,9 +25,10 @@ export const jwtVerify = async (token: string): Promise<JwtUserPayload | undefin
         case 'invalid signature':
           throw new ClientRequestException(ERROR_CODE.ERR_002_0007, HttpStatus.UNAUTHORIZED);
         default:
-          throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR, e);
+          throw new ClientRequestException(ERROR_CODE.ERR_000_0003, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
+    throw new ClientRequestException(ERROR_CODE.ERR_000_0001, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 };
 
