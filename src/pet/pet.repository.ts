@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pet } from 'nose-pet-entity/dist/pet/pet.entity';
-import { DeepPartial, EntityManager, FindOptionsWhere, Repository } from 'typeorm';
+import { DeepPartial, EntityManager, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
 import { UserPetGroup } from 'nose-pet-entity/dist/user-pet-group/user-pet-group.entity';
+import { PetStatus } from 'nose-pet-entity/dist/pet/pet.constant';
 
 @Injectable()
 export class PetRepository {
@@ -31,6 +32,13 @@ export class PetRepository {
     return this.repository.save(pet);
   }
 
+  async update(where: FindOptionsWhere<Pet>, set: DeepPartial<Pet>, manager?: EntityManager): Promise<UpdateResult> {
+    if (manager) {
+      return manager.update(Pet, where, set);
+    }
+    return this.repository.update(where, set);
+  }
+
   async getPetDetail(userPetGroup: UserPetGroup, petIdx: number): Promise<Pet | undefined> {
     const queryBuilder = this.repository
       .createQueryBuilder('pet')
@@ -39,7 +47,8 @@ export class PetRepository {
       .leftJoinAndSelect('pet.userPetGroup', 'userPetGroup')
       .leftJoinAndSelect('pet.creator', 'creator')
       .where('pet.idx = :petIdx', { petIdx })
-      .andWhere('userPetGroup.idx = :userPetGroupIdx', { userPetGroupIdx: userPetGroup.idx });
+      .andWhere('userPetGroup.idx = :userPetGroupIdx', { userPetGroupIdx: userPetGroup.idx })
+      .andWhere('pet.status != :status', { status: PetStatus.Deleted });
 
     const result = await queryBuilder.getOne();
     if (result) {

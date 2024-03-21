@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ApiPath } from './pet.constant';
 import { IRequestAugmented } from '../app/app.interface';
 import { CreatePetBodyDto, GetPetParamDto } from './pet.dto';
@@ -8,6 +8,7 @@ import { TokenGuard } from '../app/guards/token.guard';
 import { CreatePetBodyPipe } from './pet.pipe';
 import { PetGuard } from '../app/guards/pet.guard';
 import { PetDetailResponseDto } from './dto/pet-detail-response.dto';
+import { PetStatus } from 'nose-pet-entity/dist/pet/pet.constant';
 
 @Controller(ApiPath.Root)
 export class PetController {
@@ -28,5 +29,13 @@ export class PetController {
   async getPetDetail(@Req() req: IRequestAugmented, @Param() param: GetPetParamDto) {
     const pet = req.extras.getPet();
     return new PetDetailResponseDto(pet);
+  }
+
+  @Delete(`${ApiPath.GetPet}`)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(TokenGuard, UserGuard, PetGuard)
+  async deletePet(@Req() req: IRequestAugmented, @Param() param: GetPetParamDto): Promise<void> {
+    const pet = req.extras.getPet();
+    await this.petService.updatePetStatus(pet, PetStatus.Deleted);
   }
 }

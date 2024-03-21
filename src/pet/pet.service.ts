@@ -45,4 +45,8 @@ export class PetService {
     });
     return !!pet;
   }
+
+  async updatePetStatus(pet: Pet, status: PetStatus, manager?: EntityManager) {
+    return this.petRepository.update({ idx: pet.idx }, { status }, manager);
+  }
 }
