@@ -28,3 +28,5 @@ export class CreatePetBodyDto {
 export class GetPetParamDto {
   petIdx: number;
 }
+
+export class ModifyPetBodyDto extends CreatePetBodyDto {}

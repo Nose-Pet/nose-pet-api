@@ -17,3 +17,6 @@ export class CreatePetBodyPipe implements PipeTransform {
     return value;
   }
 }
+
+@Injectable()
+export class ModifyPetBodyPipe extends CreatePetBodyPipe {}

@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { PetRepository } from './pet.repository';
-import { CreatePetBodyDto } from './pet.dto';
+import { CreatePetBodyDto, ModifyPetBodyDto } from './pet.dto';
 import { UserPetGroup } from 'nose-pet-entity/dist/user-pet-group/user-pet-group.entity';
 import { User } from 'nose-pet-entity/dist/user/user.entity';
 import { EntityManager, Not } from 'typeorm';
@@ -48,5 +48,20 @@ export class PetService {
 
   async updatePetStatus(pet: Pet, status: PetStatus, manager?: EntityManager) {
     return this.petRepository.update({ idx: pet.idx }, { status }, manager);
+  }
+
+  async modifyPet(pet: Pet, dto: ModifyPetBodyDto, manager?: EntityManager) {
+    return this.petRepository.update(
+      { idx: pet.idx },
+      {
+        name: dto.name,
+        gender: dto.gender,
+        isNeutered: dto.isNeutered,
+        birth: dto.birth,
+        petType: dto.type,
+        image: dto?.image,
+      },
+      manager,
+    );
   }
 }
