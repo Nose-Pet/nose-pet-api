@@ -24,3 +24,7 @@ export class CreatePetBodyDto {
   @Validate(IsString)
   type: PetType;
 }
+
+export class GetPetParamDto {
+  petIdx: number;
+}

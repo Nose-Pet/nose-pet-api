@@ -4,6 +4,7 @@ import { CreatePetBodyDto } from './pet.dto';
 import { UserPetGroup } from 'nose-pet-entity/dist/user-pet-group/user-pet-group.entity';
 import { User } from 'nose-pet-entity/dist/user/user.entity';
 import { EntityManager } from 'typeorm';
+import { Pet } from 'nose-pet-entity/dist/pet/pet.entity';
 
 @Injectable()
 export class PetService {
@@ -23,5 +24,9 @@ export class PetService {
       }),
       manager,
     );
+  }
+
+  async getPetDetail(userPetGroup: UserPetGroup, petIdx: number): Promise<Pet | undefined> {
+    return this.petRepository.getPetDetail(userPetGroup, petIdx);
   }
 }
