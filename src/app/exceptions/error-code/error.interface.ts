@@ -54,4 +54,5 @@ export interface IErrorCode {
   ERR_003_0001: string;
   ERR_003_0002: string;
   ERR_003_0003: string;
+  ERR_003_0004: string;
 }
