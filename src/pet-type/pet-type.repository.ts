@@ -20,6 +20,8 @@ export class PetTypeRepository {
   }
 
   async getPetTypes(): Promise<PetType[]> {
-    return this.repository.find();
+    const queryBuilder = this.repository.createQueryBuilder('petType').orderBy('petType.idx', 'ASC');
+
+    return queryBuilder.getMany();
   }
 }

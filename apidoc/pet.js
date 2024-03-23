@@ -8,7 +8,7 @@
  * @apiBody {String=MALE,FEMALE} gender 성별
  * @apiBody {Boolean} isNeutered 중성화 여부
  * @apiBody {String} birth 생년월일 (YYYY-MM-DD)
- * @apiBody {String} type 펫 종류</br>허용 가능한 펫 타입은 '펫 타입 조회 api'를 통해 확인 가능
+ * @apiBody {String} type 펫 종류</br>허용 가능한 펫 타입은 <b><i><a href='#api-Pet-GetPetTypeList'>'펫 타입 조회 api'</a></i></b> 를 통해 확인 가능
  * @apiBody {String} [image] 이미지 URL
  *
  * @apiSuccessExample {json} Success-Response:
@@ -122,7 +122,7 @@
  * @apiBody {String=MALE,FEMALE} [gender] 성별
  * @apiBody {Boolean} [isNeutered] 중성화 여부
  * @apiBody {String} [birth] 생년월일 (YYYY-MM-DD)
- * @apiBody {String} [type] 펫 종류</br>허용 가능한 펫 타입은 '펫 타입 조회 api'를 통해 확인 가능
+ * @apiBody {String} [type] 펫 종류</br>허용 가능한 펫 타입은 <b><i><a href='#api-Pet-GetPetTypeList'>'펫 타입 조회 api'</a></i></b> 를 통해 확인 가능
  * @apiBody {String} [image] 이미지 URL
  *
  * @apiSuccessExample {json} Success-Response:
@@ -181,5 +181,31 @@
  *         ...
  *     ],
  *     "count": 11
+ * }
+ */
+
+/**
+ * @api {get} /pet-types 06. 펫 타입 조회
+ * @apiName GetPetTypeList
+ * @apiGroup Pet
+ *
+ * @apiSuccess {Object[]} list 펫 타입
+ * @apiSuccess {Number} list.idx 펫 타입 idx
+ * @apiSuccess {String} list.name 펫 타입 이름
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 200 OK
+ * {
+ *     "list": [
+ *         {
+ *             "idx": 1,
+ *             "name": "치와와"
+ *         },
+ *         {
+ *             "idx": 2,
+ *             "name": "골든 리트리버"
+ *         },
+ *         ...
+ *     ]
  * }
  */
