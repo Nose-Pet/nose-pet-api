@@ -8,6 +8,7 @@ import { Pet } from 'nose-pet-entity/dist/pet/pet.entity';
 import { PetStatus } from 'nose-pet-entity/dist/pet/pet.constant';
 import { ClientRequestException } from '../app/exceptions/request.exception';
 import ERROR_CODE from '../app/exceptions/error-code';
+import { ListFilterQueryDto } from '../app/dto/common.dto';
 
 @Injectable()
 export class PetService {
@@ -63,5 +64,9 @@ export class PetService {
       },
       manager,
     );
+  }
+
+  async getPetList(userPetGroup: UserPetGroup, query?: ListFilterQueryDto): Promise<[Pet[], number]> {
+    return this.petRepository.getPetListByUserPetGroup(userPetGroup, query);
   }
 }

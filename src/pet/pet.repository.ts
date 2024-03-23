@@ -4,6 +4,7 @@ import { Pet } from 'nose-pet-entity/dist/pet/pet.entity';
 import { DeepPartial, EntityManager, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
 import { UserPetGroup } from 'nose-pet-entity/dist/user-pet-group/user-pet-group.entity';
 import { PetStatus } from 'nose-pet-entity/dist/pet/pet.constant';
+import { ListFilterQueryDto } from '../app/dto/common.dto';
 
 @Injectable()
 export class PetRepository {
@@ -55,5 +56,30 @@ export class PetRepository {
       return result;
     }
     return undefined;
+  }
+
+  async getPetListByUserPetGroup(userPetGroup: UserPetGroup, query: ListFilterQueryDto = {}): Promise<[Pet[], number]> {
+    const queryBuilder = this.repository
+      .createQueryBuilder('pet')
+      .leftJoinAndSelect('pet.petType', 'petType')
+      .leftJoinAndSelect('pet.petNosePrint', 'petNosePrint')
+      .leftJoinAndSelect('pet.userPetGroup', 'userPetGroup')
+      .where('userPetGroup.idx = :userPetGroupIdx', { userPetGroupIdx: userPetGroup.idx })
+      .andWhere('pet.status != :status', { status: PetStatus.Deleted })
+      .orderBy('pet.createdDate', 'ASC');
+
+    if (query?.limit) {
+      queryBuilder.limit(query.limit);
+    }
+
+    if (query?.offset) {
+      queryBuilder.offset(query.offset);
+    }
+
+    if (query?.searchTerm) {
+      queryBuilder.andWhere('pet.name LIKE :searchTerm', { searchTerm: `%${query.searchTerm}%` });
+    }
+
+    return queryBuilder.getManyAndCount();
   }
 }
