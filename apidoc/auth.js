@@ -2,6 +2,7 @@
  * @api {post} /auth/signup 01. 유저 회원가입
  * @apiName UserSignup
  * @apiGroup Auth
+ * @apiPermission none
  *
  * @apiBody {String} email 이메일
  * @apiBody {String} password 비밀번호</br>대소문자 및 숫자, 특수문자 포함 8~15자리
@@ -22,6 +23,7 @@
  * @api {post} /auth/signin 02. 유저 로그인
  * @apiName UserSignin
  * @apiGroup Auth
+ * @apiPermission none
  *
  * @apiBody {String} email 이메일
  * @apiBody {String} password 비밀번호
