@@ -34,4 +34,18 @@ export class UserService {
   async getUserByEmail(email: string): Promise<User | undefined> {
     return this.userRepository.getUser({ email }, ['userSecret']);
   }
+
+  async getUserByIdx(idx: number): Promise<User | undefined> {
+    return this.userRepository.getUser({ idx });
+  }
+
+  async getUserFullJoinedByIdx(idx: number): Promise<User | undefined> {
+    return this.userRepository.getUser({ idx }, [
+      'userPetGroup',
+      'userSecret',
+      'userPetGroup.pets',
+      'userPetGroup.pets.petType',
+      'userPetGroup.pets.petNosePrint',
+    ]);
+  }
 }

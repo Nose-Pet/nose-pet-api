@@ -30,7 +30,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       sendData.errorCode = this.getErrorCode(sendData.message);
 
       if (exception.value) {
-        sendData.message = format(sendData.message, sendData.error);
+        sendData.message = format(sendData.message, exception.value);
       }
     } else if (exception instanceof NotFoundException) {
       statusCode = 404;

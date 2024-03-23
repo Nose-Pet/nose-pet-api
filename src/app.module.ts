@@ -15,6 +15,8 @@ import { TokenModule } from './token/token.module';
 import { AuthModule } from './auth/auth.module';
 import { UserPetGroupModule } from './user-pet-group/user-pet-group.module';
 import { UserSecretModule } from './user-secret/user-secret.module';
+import { PetModule } from './pet/pet.module';
+import { PetTypeModule } from './pet-type/pet-type.module';
 
 export const TypeOrmRootModule = TypeOrmModule.forRootAsync({
   useClass: MysqlConfigService,
@@ -32,11 +34,13 @@ export const TypeOrmRootModule = TypeOrmModule.forRootAsync({
     AuthModule,
     UserPetGroupModule,
     UserSecretModule,
+    PetModule,
+    PetTypeModule,
   ],
   providers: [
     { provide: APP_INTERCEPTOR, useValue: new RavenInterceptor() },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: TokenTimeLeftInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: TokenTimeLeftInterceptor },
     { provide: APP_FILTER, useClass: AllExceptionFilter },
   ],
 })

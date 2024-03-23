@@ -1,22 +1,43 @@
-import { IRequestExtraData, JwtUserPayload } from '../app.interface';
+import { JwtUserPayload } from '../app.interface';
+import { User } from 'nose-pet-entity/dist/user/user.entity';
+import { UserPetGroup } from 'nose-pet-entity/dist/user-pet-group/user-pet-group.entity';
+import { Pet } from 'nose-pet-entity/dist/pet/pet.entity';
 
 export class RequestExtras {
-  private readonly payload?: JwtUserPayload;
-  // private readonly user?: UserEntity;
+  private payload: JwtUserPayload;
+  private user: User;
+  private userPetGroup: UserPetGroup;
+  private pet: Pet;
 
-  constructor(data: IRequestExtraData) {
-    this.payload = data.payload;
-    // this.user = data.user;
+  setUser(user: User): void {
+    this.user = user;
   }
 
-  // getUser(): UserEntity {
-  //   if (!this.user) {
-  //     throw new ClientRequestException(ERROR_CODE.ERR_002_0001, HttpStatus.INTERNAL_SERVER_ERROR);
-  //   }
-  //   return this.user;
-  // }
+  getUser(): User {
+    return this.user;
+  }
 
-  getPayload(): JwtUserPayload | undefined {
+  setUserPetGroup(userPetGroup: UserPetGroup): void {
+    this.userPetGroup = userPetGroup;
+  }
+
+  getUserPetGroup(): UserPetGroup {
+    return this.userPetGroup;
+  }
+
+  setPayload(payload: JwtUserPayload): void {
+    this.payload = payload;
+  }
+
+  getPayload(): JwtUserPayload {
     return this.payload;
+  }
+
+  setPet(pet: Pet): void {
+    this.pet = pet;
+  }
+
+  getPet(): Pet {
+    return this.pet;
   }
 }

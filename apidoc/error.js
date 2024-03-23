@@ -75,3 +75,55 @@
  *   "message": "올바르지 않은 비밀번호 형식입니다."
  * }
  */
+
+/**
+ * @apiDefine InvalidPetGender
+ *
+ * @apiError InvalidPetGender 올바르지 않은 펫 성별입니다.
+ *
+ * @apiErrorExample InvalidPetGender:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *   "errorCode": "ERR_003_0001",
+ *   "message": "올바르지 않은 펫 성별입니다."
+ * }
+ */
+
+/**
+ * @apiDefine NotFoundPetType
+ *
+ * @apiError NotFoundPetType 해당 펫 타입을 찾을 수 없습니다.
+ *
+ * @apiErrorExample NotFoundPetType:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *   "errorCode": "ERR_003_0002",
+ *   "message": "해당 펫 타입을 찾을 수 없습니다."
+ * }
+ */
+
+/**
+ * @apiDefine NotFoundPet
+ *
+ * @apiError NotFoundPet 해당 펫을 찾을 수 없습니다.
+ *
+ * @apiErrorExample NotFoundPet:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *   "errorCode": "ERR_003_0003",
+ *   "message": "해당 펫을 찾을 수 없습니다."
+ * }
+ */
+
+/**
+ * @apiDefine DuplicatedPet
+ *
+ * @apiError DuplicatedPet 이미 등록된 펫입니다.
+ *
+ * @apiErrorExample DuplicatedPet:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *   "errorCode": "ERR_003_0004",
+ *   "message": "이미 등록된 펫입니다."
+ * }
+ */

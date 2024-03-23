@@ -34,6 +34,8 @@ export interface IErrorCode {
   ERR_001_0002: string;
   ERR_001_0003: string;
   ERR_001_0004: string;
+  ERR_001_0005: string;
+  ERR_001_0006: string;
 
   // user error
   ERR_002_0001: string;
@@ -47,4 +49,10 @@ export interface IErrorCode {
   ERR_002_0009: string;
   ERR_002_0010: string;
   ERR_002_0011: string;
+
+  // pet error
+  ERR_003_0001: string;
+  ERR_003_0002: string;
+  ERR_003_0003: string;
+  ERR_003_0004: string;
 }
